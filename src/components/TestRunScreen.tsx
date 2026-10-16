@@ -272,18 +272,31 @@ export const TestRunScreen: React.FC<TestRunScreenProps> = ({
       {showCodeSnippet && (
         <div className="bg-[#121316] text-zinc-200 p-5 rounded-3xl shadow-card border border-zinc-800 space-y-3 font-mono text-xs">
           <div className="flex justify-between items-center text-zinc-400 pb-2 border-b border-zinc-800">
-            <span className="font-semibold text-white">
-              Trích từ tinh_chi_so_giam_sat.py – mã Python của nhóm nghiên cứu
+            <span className="font-semibold text-white flex items-center gap-2">
+              <span>🐍</span>
+              <span>Trích từ tinh_chi_so_giam_sat.py – Định nghĩa & giải thích chi tiết từng dòng lệnh</span>
             </span>
-            <button
-              type="button"
-              onClick={() => setShowCodeSnippet(false)}
-              className="hover:text-white cursor-pointer"
-            >
-              ✕ Đóng
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  navigator.clipboard.writeText(CODE_SNIPPET);
+                }}
+                className="text-[11px] bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-2.5 py-1 rounded-lg transition cursor-pointer"
+                title="Sao chép toàn bộ mã nguồn"
+              >
+                📋 Sao chép code
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowCodeSnippet(false)}
+                className="hover:text-white cursor-pointer"
+              >
+                ✕ Đóng
+              </button>
+            </div>
           </div>
-          <pre className="overflow-x-auto text-[11px] leading-relaxed text-zinc-300">
+          <pre className="overflow-x-auto text-[11px] leading-relaxed text-zinc-300 font-mono whitespace-pre">
             {CODE_SNIPPET}
           </pre>
         </div>

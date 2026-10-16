@@ -43,29 +43,46 @@ export interface EvaluatedStep {
   psi_vuot: boolean;
 }
 
-export const CODE_SNIPPET = `# Lệnh chạy:
-python tinh_chi_so_giam_sat.py "<thư mục btc3\\\\predictions>" <thư mục ra>
+export const CODE_SNIPPET = `# ========================================================================================================================
+# 1. LỆNH CHẠY TRÊN DÒNG LỆNH (TERMINAL / CLI):
+# ========================================================================================================================
+python tinh_chi_so_giam_sat.py "<thư mục btc3\\\\predictions>" <thư mục ra>  # [Lệnh chạy CLI] python <tên_script> <thư_mục_chứa_file_dự_báo_csv> <thư_mục_lưu_báo_cáo_kết_quả>
 
-def psi(ref, cur, n_bins=10, eps=1e-4):
-    edges = np.linspace(0, 1, n_bins + 1)
-    r = np.histogram(np.clip(ref, 0, 1), edges)[0] / len(ref)
-    c = np.histogram(np.clip(cur, 0, 1), edges)[0] / len(cur)
-    r = np.maximum(r, eps); c = np.maximum(c, eps)
-    return float(np.sum((c - r) * np.log(c / r)))
+# ========================================================================================================================
+# 2. HÀM TÍNH ĐỘ LỆCH PHÂN PHỐI ĐIỂM SỐ PSI (Population Stability Index):
+# Công thức: PSI = Tổng_k [ (c_k - r_k) * ln(c_k / r_k) ]
+# Mục đích: Đo độ méo mó hình dạng phân phối điểm số so với lúc khỏe; không cần nhãn điều tra; biết ngay trong kỳ.
+# ========================================================================================================================
+def psi(ref, cur, n_bins=10, eps=1e-4):                          # Khai báo hàm: ref (điểm mốc lúc khỏe t31-34), cur (điểm kỳ hiện tại), n_bins=10 (10 khoảng), eps (hằng số chống chia 0)
+    edges = np.linspace(0, 1, n_bins + 1)                       # [Dòng 1] Tạo 11 mốc ranh giới chia đều thang đo [0, 1] thành 10 khoảng (bin): [0.0, 0.1, 0.2, ..., 1.0]
+    r = np.histogram(np.clip(ref, 0, 1), edges)[0] / len(ref)   # [Dòng 2] Kẹp điểm tham chiếu vào [0, 1], đếm số mẫu rơi vào từng bin rồi chia cho tổng số mẫu để ra % tỉ lệ gốc r_k
+    c = np.histogram(np.clip(cur, 0, 1), edges)[0] / len(cur)   # [Dòng 3] Kẹp điểm kỳ này vào [0, 1], đếm số mẫu rơi vào từng bin rồi chia cho tổng số mẫu để ra % tỉ lệ kỳ này c_k
+    r = np.maximum(r, eps); c = np.maximum(c, eps)               # [Dòng 4] Thay các bin có tỉ lệ = 0 bằng giá trị cực nhỏ eps (0.0001) để tránh phát sinh lỗi chia cho 0 hoặc ln(0)
+    return float(np.sum((c - r) * np.log(c / r)))                # [Dòng 5] Tính tổng phân kỳ Kullback-Leibler đối xứng; PSI > 0.25 cảnh báo phân phối điểm số đã bị trôi dạt nghiêm trọng
 
-def ece(y, p, n_bins=10):
-    y = np.asarray(y, float); p = np.asarray(p, float)
-    edges = np.linspace(0, 1, n_bins + 1)
-    idx = np.clip(np.digitize(p, edges[1:-1], right=True), 0, n_bins - 1)
-    out = 0.0
-    for k in range(n_bins):
-        m = idx == k
-        if m.any():
-            out += m.sum() / len(y) * abs(p[m].mean() - y[m].mean())
-    return float(out)
+# ========================================================================================================================
+# 3. HÀM TÍNH SAI SỐ HIỆU CHUẨN XÁC SUẤT ECE (Expected Calibration Error):
+# Công thức: ECE = Tổng_k [ (n_k / N) * |Mean(p_k) - Mean(y_k)| ]
+# Mục đích: Đo độ vênh giữa xác suất dự báo và tỉ lệ rửa tiền thực tế; tính trên calibrated_score; > 0.1 là hết đáng tin.
+# ========================================================================================================================
+def ece(y, p, n_bins=10):                                        # Khai báo hàm: y (nhãn thực tế 0/1), p (xác suất dự báo sau hiệu chuẩn), n_bins=10 (10 khoảng độ tin cậy)
+    y = np.asarray(y, float); p = np.asarray(p, float)           # [Dòng 1] Ép kiểu mảng nhãn thực tế y và mảng xác suất dự báo p sang dạng số thực (float) để thực hiện phép toán số học
+    edges = np.linspace(0, 1, n_bins + 1)                       # [Dòng 2] Tạo 11 mốc điểm chia đều đoạn [0, 1] thành 10 khoảng tự tin xác suất (0.0 - 0.1, 0.1 - 0.2, ..., 0.9 - 1.0)
+    idx = np.clip(np.digitize(p, edges[1:-1], right=True), 0, n_bins - 1)  # [Dòng 3] Gán từng xác suất p vào chỉ số bin tương ứng từ 0 đến 9 dựa trên giá trị mốc ranh giới
+    out = 0.0                                                    # [Dòng 4] Khởi tạo biến tổng tích lũy sai số hiệu chuẩn ECE bằng 0.0
+    for k in range(n_bins):                                      # [Dòng 5] Duyệt tuần tự qua lần lượt từng bin xác suất k từ bin 0 đến bin 9
+        m = idx == k                                             # [Dòng 6] Tạo mặt nạ boolean (mask) lọc các giao dịch có điểm xác suất dự báo rơi đúng vào bin k
+        if m.any():                                              # [Dòng 7] Kiểm tra điều kiện: chỉ xử lý tính toán nếu trong bin k có chứa ít nhất một giao dịch
+            out += m.sum() / len(y) * abs(p[m].mean() - y[m].mean())  # [Dòng 8] Cộng dồn: (Tỉ trọng số mẫu trong bin k / tổng mẫu) * |Xác suất dự báo TB - Tỉ lệ rửa tiền thực tế TB|
+    return float(out)                                            # [Dòng 9] Trả về giá trị ECE dạng số thực float; ECE > 0.10 cảnh báo điểm số mô hình không còn phản ánh đúng xác suất thật
 
-def ap(y, s):
-    return float(average_precision_score(y, s)) if y.sum() > 0 else float("nan")`;
+# ========================================================================================================================
+# 4. HÀM TÍNH ĐỘ CHÍNH XÁC XẾP HẠNG AP (Average Precision):
+# Công thức: AP = Diện tích dưới đường cong Precision-Recall (PR AUC)
+# Mục đích: Đo năng lực xếp đúng kẻ gian lên đầu danh sách cảnh báo; tính trên raw_score (do isotonic nén điểm làm mất thứ hạng).
+# ========================================================================================================================
+def ap(y, s):                                                    # Khai báo hàm: y (nhãn thực tế 1/0), s (điểm số thô raw_score bảo toàn thứ hạng dự báo của mô hình)
+    return float(average_precision_score(y, s)) if y.sum() > 0 else float("nan")  # [Dòng 1] Nếu có ít nhất 1 vụ rửa tiền (y.sum() > 0): tính PR AUC; nếu không có nhãn rửa tiền: trả về NaN vì không đủ dữ liệu đánh giá`;
 
 /**
  * Format number with Vietnamese decimal comma
