@@ -1,0 +1,8 @@
+{
+  "name": "Trạm kiểm thử suy giảm mô hình AML",
+  "description": "Nền tảng kiểm thử suy giảm hiệu năng mô hình phát hiện rửa tiền (AML) trên đồ thị Bitcoin theo thời gian.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
