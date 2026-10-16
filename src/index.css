@@ -1,1 +1,42 @@
 @import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", Inter, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --color-mono-50: #F9FAFB;
+  --color-mono-100: #F3F4F6;
+  --color-mono-200: #E5E7EB;
+  --color-mono-300: #D1D5DB;
+  --color-mono-400: #9CA3AF;
+  --color-mono-500: #6B7280;
+  --color-mono-600: #4B5563;
+  --color-mono-700: #374151;
+  --color-mono-800: #1F2937;
+  --color-mono-900: #111827;
+  --color-mono-950: #0B0C0E;
+  --color-mono-black: #121316;
+  --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+  --shadow-card: 0 10px 30px -4px rgba(0, 0, 0, 0.04);
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #9CA3AF;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6B7280;
+}

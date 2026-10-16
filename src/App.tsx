@@ -1,74 +1,90 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { duLieuApp, Company } from './data/du_lieu_app.ts';
 import { ThresholdConfig, DEFAULT_THRESHOLDS } from './utils/metrics.ts';
+import { Sidebar, ScreenState } from './components/Sidebar.tsx';
 import { Header } from './components/Header.tsx';
-import { ThresholdModal } from './components/ThresholdModal.tsx';
 import { HomeScreen } from './components/HomeScreen.tsx';
 import { CompanyDetailScreen } from './components/CompanyDetailScreen.tsx';
 import { TestRunScreen, CustomTestPayload } from './components/TestRunScreen.tsx';
 import { UploadScreen } from './components/UploadScreen.tsx';
-
-type ScreenState = 'home' | 'company-detail' | 'test-run' | 'upload';
+import { ThresholdModal } from './components/ThresholdModal.tsx';
 
 export default function App() {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [currentScreen, setCurrentScreen] = useState<ScreenState>('home');
-  const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
+  const [selectedCompanyCode, setSelectedCompanyCode] = useState<string>('A');
   const [customData, setCustomData] = useState<CustomTestPayload | null>(null);
 
   // Thresholds state
   const [thresholds, setThresholds] = useState<ThresholdConfig>(DEFAULT_THRESHOLDS);
-  const [isThresholdModalOpen, setIsThresholdModalOpen] = useState(false);
+  const [showThresholdModal, setShowThresholdModal] = useState<boolean>(false);
+
+  // Sync dark mode class on <html>
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
+
+  // Selected company object
+  const currentCompany = useMemo(() => {
+    return duLieuApp.companies.find((c) => c.code === selectedCompanyCode) || duLieuApp.companies[0];
+  }, [selectedCompanyCode]);
 
   // Navigate to Company Detail
   const handleSelectCompany = (company: Company) => {
-    setSelectedCompany(company);
+    setSelectedCompanyCode(company.code);
     setCustomData(null);
-    setCurrentScreen('company-detail');
+    setCurrentScreen('company_detail');
   };
 
-  // Navigate to Test Run from Company Detail
+  // Start Testing from Company Detail
   const handleStartTesting = () => {
-    setCurrentScreen('test-run');
+    setCurrentScreen('testing');
   };
 
   // Navigate to Upload Screen
   const handleGoToUpload = () => {
-    setSelectedCompany(null);
-    setCustomData(null);
     setCurrentScreen('upload');
   };
 
   // Run Custom Test from Uploaded CSV
   const handleRunCustomTest = (payload: CustomTestPayload) => {
     setCustomData(payload);
-    setSelectedCompany(null);
-    setCurrentScreen('test-run');
+    setCurrentScreen('testing');
   };
 
   // Return to Home
   const handleBackToHome = () => {
-    setSelectedCompany(null);
     setCustomData(null);
     setCurrentScreen('home');
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans">
-      {/* Persistent Header */}
-      <Header
-        onOpenThresholds={() => setIsThresholdModalOpen(true)}
+    <div className="min-h-screen flex font-sans bg-[#F4F5F7] dark:bg-[#0B0C0E] text-zinc-900 dark:text-zinc-100 transition-colors duration-200">
+      {/* ==================== CỘT BÊN TRÁI (SIDEBAR ĐEN TRẮNG) ==================== */}
+      <Sidebar
+        currentScreen={currentScreen}
+        onNavigate={(screen) => setCurrentScreen(screen)}
+        isDarkMode={isDarkMode}
+        onToggleTheme={() => setIsDarkMode(!isDarkMode)}
+        onOpenThresholds={() => setShowThresholdModal(true)}
         thresholds={thresholds}
-        onNavigateHome={handleBackToHome}
-        showBackHome={currentScreen !== 'home'}
+        currentCompanyName={customData ? customData.name : currentCompany?.name}
+        hasSelectedCompany={!!currentCompany || !!customData}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1">
+      {/* ==================== KHU VỰC NỘI DUNG CHÍNH (BÊN PHẢI) ==================== */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Header Khu Vực Nội Dung */}
+        <Header
+          onOpenThresholds={() => setShowThresholdModal(true)}
+          thresholds={thresholds}
+        />
+
+        {/* Content Screens */}
         {currentScreen === 'home' && (
           <HomeScreen
             companies={duLieuApp.companies}
@@ -77,20 +93,21 @@ export default function App() {
           />
         )}
 
-        {currentScreen === 'company-detail' && selectedCompany && (
+        {currentScreen === 'company_detail' && (
           <CompanyDetailScreen
-            company={selectedCompany}
+            company={currentCompany}
             onBack={handleBackToHome}
             onStartTesting={handleStartTesting}
           />
         )}
 
-        {currentScreen === 'test-run' && (
+        {currentScreen === 'testing' && (
           <TestRunScreen
-            company={selectedCompany || undefined}
+            company={customData ? undefined : currentCompany}
             customData={customData || undefined}
             thresholds={thresholds}
             onBackToHome={handleBackToHome}
+            isDarkMode={isDarkMode}
           />
         )}
 
@@ -100,27 +117,15 @@ export default function App() {
             onRunCustomTest={handleRunCustomTest}
           />
         )}
-      </main>
 
-      {/* Threshold Configuration Modal */}
-      <ThresholdModal
-        isOpen={isThresholdModalOpen}
-        onClose={() => setIsThresholdModalOpen(false)}
-        thresholds={thresholds}
-        onSave={(newThresholds) => setThresholds(newThresholds)}
-      />
-
-      {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white py-6 mt-12 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 space-y-1">
-          <p className="font-medium text-slate-600">
-            Trạm kiểm thử suy giảm mô hình AML · Minh họa nghiên cứu trôi dạt dữ liệu trên đồ thị Bitcoin Elliptic
-          </p>
-          <p className="text-slate-400 text-2xs">
-            Toàn bộ tính toán AP, ECE, PSI và quy tắc phân luồng can thiệp chạy trực tiếp 100% trong trình duyệt người dùng.
-          </p>
-        </div>
-      </footer>
+        {/* Threshold Configuration Modal */}
+        <ThresholdModal
+          isOpen={showThresholdModal}
+          onClose={() => setShowThresholdModal(false)}
+          thresholds={thresholds}
+          onSave={(newThresholds) => setThresholds(newThresholds)}
+        />
+      </div>
     </div>
   );
 }

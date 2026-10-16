@@ -1,77 +1,54 @@
 import React from 'react';
-import { Sliders, ShieldAlert, Activity, ArrowLeft } from 'lucide-react';
-import { ThresholdConfig, formatNum, formatPct } from '../utils/metrics.ts';
+import { ThresholdConfig, formatPercent, formatNum } from '../utils/metrics.ts';
 
 interface HeaderProps {
   onOpenThresholds: () => void;
   thresholds: ThresholdConfig;
-  onNavigateHome?: () => void;
-  showBackHome?: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({
-  onOpenThresholds,
-  thresholds,
-  onNavigateHome,
-  showBackHome = false
-}) => {
+export const Header: React.FC<HeaderProps> = ({ onOpenThresholds, thresholds }) => {
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-2xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 gap-4">
-          {/* Left Title and Branding */}
-          <div className="flex items-center gap-3">
-            {showBackHome && onNavigateHome && (
-              <button
-                onClick={onNavigateHome}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors border border-slate-200 mr-1"
-                title="Về trang chủ"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Trang chủ</span>
-              </button>
-            )}
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-xs">
-                <Activity className="w-5 h-5" />
-              </div>
-              <div>
-                <h1 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
-                  <span>Trạm kiểm thử suy giảm mô hình AML</span>
-                </h1>
-                <p className="text-xs text-slate-500 font-medium hidden md:block">
-                  Bản minh họa · Dữ liệu Elliptic · Công ty giả định
-                </p>
-              </div>
+    <header className="bg-white/80 dark:bg-[#121316]/80 backdrop-blur-md border-b border-zinc-200/80 dark:border-zinc-800 sticky top-0 z-40 px-8 py-3.5 flex justify-between items-center shadow-xs">
+      <div className="flex items-center gap-3">
+        <h1 className="text-base font-extrabold tracking-tight text-zinc-900 dark:text-white">
+          Trạm kiểm thử suy giảm mô hình AML
+        </h1>
+        <span className="text-[10px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2.5 py-0.5 rounded-full border border-zinc-200 dark:border-zinc-700 whitespace-nowrap">
+          Elliptic v49
+        </span>
+        <div className="relative group">
+          <button
+            type="button"
+            className="w-5 h-5 rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-500 hover:text-black dark:hover:text-white flex items-center justify-center text-[11px] font-serif italic border border-zinc-200 dark:border-zinc-700 transition cursor-help"
+            title="Bản minh họa · Dữ liệu Elliptic · Công ty giả định"
+          >
+            i
+          </button>
+          <div className="absolute left-0 top-full mt-2 hidden group-hover:flex flex-col z-50 w-72 p-3 bg-black dark:bg-zinc-900 text-white text-xs rounded-2xl shadow-2xl border border-zinc-800 pointer-events-none transition-all">
+            <div className="flex items-center gap-1.5 font-bold text-white text-xs">
+              <span>🛡️</span> Trạm kiểm thử suy giảm mô hình AML
             </div>
-          </div>
-
-          {/* Right Action: Badge + Threshold Button */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <span className="md:hidden inline-flex items-center px-2 py-0.5 rounded-full text-2xs font-medium bg-slate-100 text-slate-700">
-              Minh họa Elliptic
-            </span>
-
-            {/* Threshold Quick Indicator Pills */}
-            <div className="hidden lg:flex items-center gap-2 text-2xs font-mono text-slate-500 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200">
-              <span title="Ngưỡng chú ý AP">AP Chú ý: <strong>{formatPct(thresholds.warn_ratio, 0)}</strong></span>
-              <span className="text-slate-300">|</span>
-              <span title="Ngưỡng báo động AP">Báo động: <strong className="text-rose-600">{formatPct(thresholds.alert_ratio, 0)}</strong></span>
-              <span className="text-slate-300">|</span>
-              <span title="Ngưỡng PSI">PSI: <strong>{formatNum(thresholds.psi_alert, 2)}</strong></span>
-              <span className="text-slate-300">|</span>
-              <span title="Ngưỡng ECE">ECE: <strong>{formatNum(thresholds.ece_warn, 2)}</strong></span>
-            </div>
-
-            <button
-              onClick={onOpenThresholds}
-              className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 rounded-xl shadow-2xs hover:shadow-xs transition-all active:scale-98"
-            >
-              <Sliders className="w-4 h-4 text-indigo-600" />
-              <span>Ngưỡng</span>
-            </button>
+            <p className="text-zinc-300 text-[11px] mt-1.5 leading-relaxed">
+              Bản minh họa nghiên cứu · Dữ liệu Bitcoin Elliptic công khai · Tên công ty là giả định, mọi số liệu là kết quả thực nghiệm.
+            </p>
           </div>
         </div>
+      </div>
+
+      <div className="flex items-center space-x-3">
+        <span className="text-xs text-zinc-400 hidden sm:inline">
+          📦 203.769 giao dịch Bitcoin
+        </span>
+        <button
+          type="button"
+          onClick={onOpenThresholds}
+          className="bg-black hover:bg-zinc-800 dark:bg-white dark:hover:bg-zinc-200 text-white dark:text-black text-xs px-3.5 py-1.5 rounded-xl font-bold flex items-center gap-1.5 transition shadow-sm"
+        >
+          <span>⚙️</span>
+          <span>
+            Ngưỡng ({formatPercent(thresholds.warn_ratio, 0)} / {formatPercent(thresholds.alert_ratio, 0)} / {formatNum(thresholds.psi_alert, 2)})
+          </span>
+        </button>
       </div>
     </header>
   );
