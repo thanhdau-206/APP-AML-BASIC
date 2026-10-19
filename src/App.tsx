@@ -63,8 +63,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex font-sans bg-[#F4F5F7] dark:bg-[#0B0C0E] text-zinc-900 dark:text-zinc-100 transition-colors duration-200">
-      {/* ==================== CỘT BÊN TRÁI (SIDEBAR ĐEN TRẮNG) ==================== */}
+    <div className="min-h-screen flex font-sans bg-[#FAF4EB] dark:bg-[#1A1513] text-[#38312C] dark:text-[#F5EFE8] transition-colors duration-200">
+      {/* ==================== CỘT BÊN TRÁI (SIDEBAR CLAYMORPHIC) ==================== */}
       <Sidebar
         currentScreen={currentScreen}
         onNavigate={(screen) => setCurrentScreen(screen)}

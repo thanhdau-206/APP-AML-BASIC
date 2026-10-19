@@ -25,21 +25,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
   hasSelectedCompany
 }) => {
   return (
-    <aside className="w-20 shrink-0 h-screen sticky top-0 bg-white dark:bg-[#121316] border-r border-zinc-200/90 dark:border-zinc-800/90 flex flex-col items-center justify-between py-6 z-50 select-none shadow-xs">
+    <aside className="w-20 shrink-0 h-screen sticky top-0 bg-[#FFFDF9]/90 dark:bg-[#231D1A]/90 backdrop-blur-md border-r border-[#EFE2D4] dark:border-[#382E28] flex flex-col items-center justify-between py-6 z-50 select-none shadow-[4px_0_24px_rgba(184,153,136,0.1)]">
       {/* Top: Logo & Navigation Icons */}
       <div className="flex flex-col items-center space-y-7">
-        {/* Logo Vector AML Squircle */}
+        {/* Logo Vector AML Squircle (Tactile Clay Disc) */}
         <div
           onClick={() => onNavigate('home')}
-          className="w-12 h-12 rounded-2xl bg-black dark:bg-white text-white dark:text-black flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer group"
+          className="w-12 h-12 rounded-[20px] bg-gradient-to-tr from-[#E69686] to-[#F6BEB0] text-white flex items-center justify-center shadow-[0_8px_18px_rgba(230,150,134,0.38),inset_0_2px_3px_rgba(255,255,255,0.7)] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer group"
           title="Trạm kiểm thử suy giảm mô hình AML"
         >
           <svg
-            className="w-6 h-6 transition-transform duration-200 group-hover:scale-110"
+            className="w-6 h-6 transition-transform duration-200 group-hover:scale-110 drop-shadow-xs"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2.2"
+            strokeWidth="2.4"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
@@ -56,10 +56,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <button
               type="button"
               onClick={() => onNavigate('home')}
-              className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-200 ${
+              className={`w-11 h-11 rounded-[18px] flex items-center justify-center transition-all duration-200 cursor-pointer ${
                 currentScreen === 'home'
-                  ? 'bg-black text-white dark:bg-white dark:text-black shadow-md'
-                  : 'text-zinc-400 hover:text-black dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                  ? 'bg-gradient-to-tr from-[#8BAFD4] to-[#B8D3EC] text-white shadow-[0_6px_16px_rgba(139,175,212,0.45),inset_0_2px_3px_rgba(255,255,255,0.7)] scale-105'
+                  : 'text-[#8D8075] hover:text-[#38312C] dark:text-[#A89A90] dark:hover:text-white hover:bg-[#F5ECE0] dark:hover:bg-[#322A25]'
               }`}
             >
               <svg
@@ -67,7 +67,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
@@ -76,7 +76,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </svg>
             </button>
             <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden group-hover:flex items-center z-50 pointer-events-none">
-              <div className="bg-black dark:bg-zinc-900 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-xl border border-zinc-800 whitespace-nowrap">
+              <div className="bg-[#FFFDF9] dark:bg-[#2B231F] text-[#38312C] dark:text-[#F5EFE8] text-xs font-bold px-3 py-1.5 rounded-2xl shadow-xl border border-[#EFE2D4] dark:border-[#443831] whitespace-nowrap">
                 Trang chủ
               </div>
             </div>
@@ -89,10 +89,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
               onClick={() => {
                 if (hasSelectedCompany) onNavigate('company_detail');
               }}
-              className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-200 ${
+              className={`w-11 h-11 rounded-[18px] flex items-center justify-center transition-all duration-200 cursor-pointer ${
                 currentScreen === 'company_detail'
-                  ? 'bg-black text-white dark:bg-white dark:text-black shadow-md'
-                  : 'text-zinc-400 hover:text-black dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                  ? 'bg-gradient-to-tr from-[#8BAFD4] to-[#B8D3EC] text-white shadow-[0_6px_16px_rgba(139,175,212,0.45),inset_0_2px_3px_rgba(255,255,255,0.7)] scale-105'
+                  : 'text-[#8D8075] hover:text-[#38312C] dark:text-[#A89A90] dark:hover:text-white hover:bg-[#F5ECE0] dark:hover:bg-[#322A25]'
               }`}
             >
               <svg
@@ -100,7 +100,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
@@ -110,7 +110,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </svg>
             </button>
             <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden group-hover:flex items-center z-50 pointer-events-none">
-              <div className="bg-black dark:bg-zinc-900 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-xl border border-zinc-800 whitespace-nowrap">
+              <div className="bg-[#FFFDF9] dark:bg-[#2B231F] text-[#38312C] dark:text-[#F5EFE8] text-xs font-bold px-3 py-1.5 rounded-2xl shadow-xl border border-[#EFE2D4] dark:border-[#443831] whitespace-nowrap">
                 Thông tin công ty ({currentCompanyName || 'Chưa chọn'})
               </div>
             </div>
@@ -123,10 +123,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
               onClick={() => {
                 if (hasSelectedCompany) onNavigate('testing');
               }}
-              className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-200 ${
+              className={`w-11 h-11 rounded-[18px] flex items-center justify-center transition-all duration-200 cursor-pointer ${
                 currentScreen === 'testing'
-                  ? 'bg-black text-white dark:bg-white dark:text-black shadow-md'
-                  : 'text-zinc-400 hover:text-black dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                  ? 'bg-gradient-to-tr from-[#8BAFD4] to-[#B8D3EC] text-white shadow-[0_6px_16px_rgba(139,175,212,0.45),inset_0_2px_3px_rgba(255,255,255,0.7)] scale-105'
+                  : 'text-[#8D8075] hover:text-[#38312C] dark:text-[#A89A90] dark:hover:text-white hover:bg-[#F5ECE0] dark:hover:bg-[#322A25]'
               }`}
             >
               <svg
@@ -134,7 +134,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
@@ -144,7 +144,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </svg>
             </button>
             <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden group-hover:flex items-center z-50 pointer-events-none">
-              <div className="bg-black dark:bg-zinc-900 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-xl border border-zinc-800 whitespace-nowrap">
+              <div className="bg-[#FFFDF9] dark:bg-[#2B231F] text-[#38312C] dark:text-[#F5EFE8] text-xs font-bold px-3 py-1.5 rounded-2xl shadow-xl border border-[#EFE2D4] dark:border-[#443831] whitespace-nowrap">
                 Kiểm thử suy giảm AML
               </div>
             </div>
@@ -155,10 +155,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <button
               type="button"
               onClick={() => onNavigate('upload')}
-              className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-200 ${
+              className={`w-11 h-11 rounded-[18px] flex items-center justify-center transition-all duration-200 cursor-pointer ${
                 currentScreen === 'upload'
-                  ? 'bg-black text-white dark:bg-white dark:text-black shadow-md'
-                  : 'text-zinc-400 hover:text-black dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                  ? 'bg-gradient-to-tr from-[#8BAFD4] to-[#B8D3EC] text-white shadow-[0_6px_16px_rgba(139,175,212,0.45),inset_0_2px_3px_rgba(255,255,255,0.7)] scale-105'
+                  : 'text-[#8D8075] hover:text-[#38312C] dark:text-[#A89A90] dark:hover:text-white hover:bg-[#F5ECE0] dark:hover:bg-[#322A25]'
               }`}
             >
               <svg
@@ -166,7 +166,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
@@ -176,7 +176,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </svg>
             </button>
             <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden group-hover:flex items-center z-50 pointer-events-none">
-              <div className="bg-black dark:bg-zinc-900 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-xl border border-zinc-800 whitespace-nowrap">
+              <div className="bg-[#FFFDF9] dark:bg-[#2B231F] text-[#38312C] dark:text-[#F5EFE8] text-xs font-bold px-3 py-1.5 rounded-2xl shadow-xl border border-[#EFE2D4] dark:border-[#443831] whitespace-nowrap">
                 Tải lên bộ dữ liệu CSV
               </div>
             </div>
@@ -191,14 +191,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button
             type="button"
             onClick={onOpenThresholds}
-            className="w-11 h-11 rounded-2xl flex items-center justify-center text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200"
+            className="w-11 h-11 rounded-[18px] flex items-center justify-center text-[#8D8075] hover:text-[#38312C] dark:text-[#A89A90] dark:hover:text-white hover:bg-[#F5ECE0] dark:hover:bg-[#322A25] transition-all duration-200 cursor-pointer"
           >
             <svg
               className="w-5 h-5"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.2"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -207,7 +207,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </svg>
           </button>
           <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden group-hover:flex items-center z-50 pointer-events-none">
-            <div className="bg-black dark:bg-zinc-900 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-xl border border-zinc-800 whitespace-nowrap">
+            <div className="bg-[#FFFDF9] dark:bg-[#2B231F] text-[#38312C] dark:text-[#F5EFE8] text-xs font-bold px-3 py-1.5 rounded-2xl shadow-xl border border-[#EFE2D4] dark:border-[#443831] whitespace-nowrap">
               Cấu hình ngưỡng ({formatPercent(thresholds.warn_ratio, 0)} / {formatPercent(thresholds.alert_ratio, 0)} / {formatNum(thresholds.psi_alert, 2)})
             </div>
           </div>
@@ -218,15 +218,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button
             type="button"
             onClick={onToggleTheme}
-            className="w-11 h-11 rounded-2xl flex items-center justify-center text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200"
+            className="w-11 h-11 rounded-[18px] flex items-center justify-center text-[#8D8075] hover:text-[#38312C] dark:text-[#A89A90] dark:hover:text-white hover:bg-[#F5ECE0] dark:hover:bg-[#322A25] transition-all duration-200 cursor-pointer"
           >
             {isDarkMode ? (
               <svg
-                className="w-5 h-5 text-zinc-200"
+                className="w-5 h-5 text-[#F6BEB0]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
@@ -235,11 +235,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </svg>
             ) : (
               <svg
-                className="w-5 h-5 text-zinc-800"
+                className="w-5 h-5 text-[#635850]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
@@ -248,8 +248,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             )}
           </button>
           <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden group-hover:flex items-center z-50 pointer-events-none">
-            <div className="bg-black dark:bg-zinc-900 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-xl border border-zinc-800 whitespace-nowrap">
-              {isDarkMode ? 'Đổi sang Nền Sáng' : 'Đổi sang Nền Tối'}
+            <div className="bg-[#FFFDF9] dark:bg-[#2B231F] text-[#38312C] dark:text-[#F5EFE8] text-xs font-bold px-3 py-1.5 rounded-2xl shadow-xl border border-[#EFE2D4] dark:border-[#443831] whitespace-nowrap">
+              {isDarkMode ? 'Đổi sang Nền Sáng Pastel' : 'Đổi sang Nền Tối Mịn'}
             </div>
           </div>
         </div>
@@ -257,4 +257,3 @@ export const Sidebar: React.FC<SidebarProps> = ({
     </aside>
   );
 };
-

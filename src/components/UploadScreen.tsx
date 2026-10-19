@@ -200,43 +200,49 @@ tx0003,35,,0.51,0.4,`;
       <button
         type="button"
         onClick={onBack}
-        className="text-xs font-semibold text-zinc-500 hover:text-zinc-900 dark:hover:text-white bg-white dark:bg-[#15171B] px-4 py-2 rounded-full shadow-sm border border-zinc-200 dark:border-zinc-800 transition flex items-center gap-1.5 cursor-pointer"
+        className="text-xs font-bold text-[#635850] hover:text-[#38312C] dark:text-[#CBBDB2] dark:hover:text-[#FAF6F0] bg-[#FAF5EE] dark:bg-[#2A2320] px-4 py-2.5 rounded-full border border-[#EADBCC] dark:border-[#443832] clay-btn transition flex items-center gap-2 cursor-pointer shadow-xs"
       >
         <span>←</span> Quay lại danh sách công ty
       </button>
 
-      <div className="bg-white dark:bg-[#15171B] p-6 rounded-3xl shadow-card border border-zinc-200/80 dark:border-zinc-800 space-y-6">
-        <div>
-          <h2 className="text-xl font-bold text-zinc-900 dark:text-white">Tải lên bộ dữ liệu của bạn</h2>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-            Kiểm thử mô hình học máy AML của riêng bạn bằng cách tải tệp điểm số theo từng kỳ. Toàn bộ thuật toán chạy trực tiếp trong trình duyệt.
+      <div className="clay-card p-8 rounded-[32px] border border-[#EFE4D6] dark:border-[#38302A] space-y-7">
+        <div className="space-y-1.5">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAF5EE] dark:bg-[#2A2320] border border-[#EADBCC] dark:border-[#443832] clay-pill text-[11px] font-bold text-[#E69686]">
+            <span>📤</span>
+            <span>CHẾ ĐỘ TẢI LÊN MÔ HÌNH AML ĐỘC LẬP</span>
+          </div>
+          <h2 className="text-2xl font-black text-[#38312C] dark:text-[#FAF6F0]">
+            Tải lên bộ dữ liệu của bạn
+          </h2>
+          <p className="text-xs text-[#635850] dark:text-[#CBBDB2] leading-relaxed">
+            Kiểm thử mô hình học máy AML của riêng bạn bằng cách tải tệp điểm số theo từng kỳ. Toàn bộ thuật toán (AP, PSI, ECE) chạy trực tiếp trong trình duyệt máy khách với độ bảo mật tuyệt đối.
           </p>
         </div>
 
         {uploadError && (
-          <div className="p-4 bg-zinc-100 dark:bg-zinc-800 border-2 border-black dark:border-white rounded-2xl text-xs text-black dark:text-white font-bold">
-            ⚠️ <strong>Lỗi:</strong> {uploadError}
+          <div className="p-4 bg-[#FDEEEA] dark:bg-[#3D2520] border-2 border-[#E69686] dark:border-[#D88170] rounded-2xl text-xs text-[#D88170] dark:text-[#F6BEB0] font-bold clay-card">
+            ⚠️ <strong>Lỗi xử lý:</strong> {uploadError}
           </div>
         )}
 
         {/* Hướng dẫn cột */}
-        <div className="p-4 bg-zinc-50 dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-600 dark:text-zinc-400 space-y-2">
-          <p className="font-bold text-zinc-900 dark:text-white">Quy cách định dạng tệp CSV:</p>
-          <ul className="list-disc pl-5 space-y-1 text-[11px]">
+        <div className="p-5 bg-[#FAF5EE]/90 dark:bg-[#2A2320]/60 rounded-2xl border border-[#EADBCC] dark:border-[#443832] text-xs text-[#635850] dark:text-[#CBBDB2] space-y-2.5 clay-inset">
+          <p className="font-bold text-[#38312C] dark:text-[#FAF6F0]">Quy cách định dạng tệp CSV:</p>
+          <ul className="list-disc pl-5 space-y-1.5 text-[11px]">
             <li>
-              <strong>Cột bắt buộc:</strong> <code>transaction_id</code>, <code>period_t</code> (chấp nhận 35 hoặc "t35"), <code>label_actual</code> (1, 0 hoặc để trống), và <code>calibrated_score</code> (chấp nhận cả tên <code>prediction_score</code>).
+              <strong className="text-[#38312C] dark:text-[#FAF6F0]">Cột bắt buộc:</strong> <code className="bg-[#FAF5EE] dark:bg-[#1A1513] px-1.5 py-0.5 rounded border border-[#EADBCC]">transaction_id</code>, <code className="bg-[#FAF5EE] dark:bg-[#1A1513] px-1.5 py-0.5 rounded border border-[#EADBCC]">period_t</code> (chấp nhận 35 hoặc "t35"), <code className="bg-[#FAF5EE] dark:bg-[#1A1513] px-1.5 py-0.5 rounded border border-[#EADBCC]">label_actual</code> (1, 0 hoặc để trống), và <code className="bg-[#FAF5EE] dark:bg-[#1A1513] px-1.5 py-0.5 rounded border border-[#EADBCC]">calibrated_score</code> (chấp nhận cả tên <code className="bg-[#FAF5EE] dark:bg-[#1A1513] px-1.5 py-0.5 rounded border border-[#EADBCC]">prediction_score</code>).
             </li>
             <li>
-              <strong>Cột tùy chọn:</strong> <code>raw_score</code> (nếu có thì AP dùng cột này, nếu không thì dùng <code>calibrated_score</code>), <code>timestamp</code> (chỉ để tra cứu).
+              <strong className="text-[#38312C] dark:text-[#FAF6F0]">Cột tùy chọn:</strong> <code className="bg-[#FAF5EE] dark:bg-[#1A1513] px-1.5 py-0.5 rounded border border-[#EADBCC]">raw_score</code> (nếu có thì AP dùng cột này, nếu không thì dùng <code className="bg-[#FAF5EE] dark:bg-[#1A1513] px-1.5 py-0.5 rounded border border-[#EADBCC]">calibrated_score</code>), <code className="bg-[#FAF5EE] dark:bg-[#1A1513] px-1.5 py-0.5 rounded border border-[#EADBCC]">timestamp</code> (chỉ để tra cứu).
             </li>
             <li>
-              Điểm số <code>calibrated_score</code> phải nằm trong đoạn [0, 1].
+              Điểm số <code className="bg-[#FAF5EE] dark:bg-[#1A1513] px-1.5 py-0.5 rounded border border-[#EADBCC]">calibrated_score</code> phải nằm trong đoạn [0, 1].
             </li>
           </ul>
           <button
             type="button"
             onClick={downloadSampleCSV}
-            className="text-black dark:text-white font-bold underline text-[11px] block pt-1 hover:opacity-80 cursor-pointer"
+            className="text-[#E69686] hover:text-[#D88170] font-black underline text-xs block pt-1 cursor-pointer transition-colors"
           >
             📥 Nhấp để tải xuống file CSV mẫu (file_mau.csv)
           </button>
@@ -244,7 +250,7 @@ tx0003,35,,0.51,0.4,`;
 
         {/* Chọn kỳ tham chiếu */}
         <div className="space-y-1.5 text-xs">
-          <label className="font-bold text-zinc-900 dark:text-white">
+          <label className="font-bold text-[#38312C] dark:text-[#FAF6F0]">
             Các kỳ tham chiếu (Mốc lúc khỏe):
           </label>
           <input
@@ -252,15 +258,15 @@ tx0003,35,,0.51,0.4,`;
             value={refPeriodInput}
             onChange={(e) => setRefPeriodInput(e.target.value)}
             placeholder="Ví dụ: 31,32,33,34"
-            className="w-full p-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white text-xs font-mono focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
+            className="w-full p-3 rounded-2xl clay-input text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#8BAFD4]"
           />
-          <p className="text-[11px] text-zinc-400">
+          <p className="text-[11px] text-[#8C7E74] dark:text-[#A8988C]">
             Các kỳ này được gộp lại để tạo phân bố xác suất và AP chuẩn lúc khỏe.
           </p>
         </div>
 
         {/* Dropzone */}
-        <div className="border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-black dark:hover:border-white rounded-3xl p-8 text-center transition cursor-pointer relative bg-zinc-50/50 dark:bg-zinc-900/50">
+        <div className="border-2 border-dashed border-[#E69686]/60 dark:border-[#D88170]/60 hover:border-[#E69686] rounded-[32px] p-10 text-center transition-all cursor-pointer relative bg-gradient-to-b from-[#FFFDF9] to-[#FAF5EE] dark:from-[#231D1A] dark:to-[#1F1917] clay-card">
           <input
             type="file"
             accept=".csv"
@@ -268,14 +274,14 @@ tx0003,35,,0.51,0.4,`;
             disabled={isProcessing}
             className="absolute inset-0 opacity-0 cursor-pointer w-full h-full disabled:cursor-not-allowed"
           />
-          <div className="w-12 h-12 rounded-2xl bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white flex items-center justify-center mx-auto mb-3 text-2xl">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#F6BEB0] via-[#E69686] to-[#D88170] text-white flex items-center justify-center mx-auto mb-4 text-3xl clay-disc shadow-md border border-white/40">
             {isProcessing ? '⏳' : '📁'}
           </div>
-          <p className="text-xs font-bold text-zinc-900 dark:text-white">
-            {isProcessing ? 'Đang phân tích tệp CSV...' : 'Kéo thả tệp CSV vào đây hoặc nhấp để chọn file'}
+          <p className="text-sm font-black text-[#38312C] dark:text-[#FAF6F0]">
+            {isProcessing ? 'Đang phân tích và tính toán tệp CSV...' : 'Kéo thả tệp CSV vào đây hoặc nhấp để duyệt file'}
           </p>
-          <p className="text-[11px] text-zinc-400 mt-1">
-            Hỗ trợ tệp định dạng .csv (tối đa hàng chục nghìn dòng, xử lý tức thì)
+          <p className="text-xs text-[#8C7E74] dark:text-[#A8988C] mt-1.5">
+            Hỗ trợ định dạng .csv (tự động phân kỳ, tính PSI, AP, ECE tức thì)
           </p>
         </div>
       </div>

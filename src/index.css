@@ -5,38 +5,153 @@
 @theme {
   --font-sans: "Plus Jakarta Sans", Inter, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
-  --color-mono-50: #F9FAFB;
-  --color-mono-100: #F3F4F6;
-  --color-mono-200: #E5E7EB;
-  --color-mono-300: #D1D5DB;
-  --color-mono-400: #9CA3AF;
-  --color-mono-500: #6B7280;
-  --color-mono-600: #4B5563;
-  --color-mono-700: #374151;
-  --color-mono-800: #1F2937;
-  --color-mono-900: #111827;
-  --color-mono-950: #0B0C0E;
-  --color-mono-black: #121316;
-  --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
-  --shadow-card: 0 10px 30px -4px rgba(0, 0, 0, 0.04);
+
+  /* Clay Pastel Palette inspired by Sooti Art Mockup */
+  --color-clay-bg: #F9F3EA;
+  --color-clay-bg-alt: #F4EAE0;
+  --color-clay-card: #FFFDF9;
+  --color-clay-card-dark: #2A2421;
+  --color-clay-peach: #F6BEB0;
+  --color-clay-coral: #E69686;
+  --color-clay-terracotta: #D88170;
+  --color-clay-blue: #8BAFD4;
+  --color-clay-blue-soft: #B8D3EC;
+  --color-clay-blue-deep: #668FB7;
+  --color-clay-sand: #EFE4D6;
+  --color-clay-sand-dark: #38302A;
+  --color-clay-cream: #FAF6F0;
+  --color-clay-espresso: #38312C;
+  --color-clay-mocha: #635850;
+  --color-clay-muted: #94867C;
+  --color-clay-sage: #A2C4B5;
+}
+
+/* Claymorphic and Soft 3D Utilities */
+.clay-card {
+  background: #FFFDF9;
+  border: 1px solid rgba(238, 226, 214, 0.85);
+  box-shadow: 0 16px 36px -6px rgba(184, 153, 136, 0.14),
+              0 4px 12px -2px rgba(184, 153, 136, 0.08),
+              inset 0 1px 2px rgba(255, 255, 255, 0.95);
+}
+
+.dark .clay-card {
+  background: #231D1A;
+  border: 1px solid rgba(68, 56, 50, 0.7);
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.4),
+              inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+.clay-card-coral {
+  background: linear-gradient(135deg, #F5BCAE 0%, #E69686 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 14px 28px -4px rgba(230, 150, 134, 0.35),
+              inset 0 2px 3px rgba(255, 255, 255, 0.5);
+}
+
+.clay-card-blue {
+  background: linear-gradient(135deg, #B5D2ED 0%, #8BAFD4 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 14px 28px -4px rgba(139, 175, 212, 0.35),
+              inset 0 2px 3px rgba(255, 255, 255, 0.5);
+}
+
+.clay-disc {
+  box-shadow: 5px 7px 16px rgba(184, 153, 136, 0.22),
+              -4px -4px 12px rgba(255, 255, 255, 0.95),
+              inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.dark .clay-disc {
+  box-shadow: 5px 7px 16px rgba(0, 0, 0, 0.4),
+              -2px -2px 8px rgba(50, 42, 38, 0.8),
+              inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.clay-inset {
+  box-shadow: inset 2px 3px 6px rgba(184, 153, 136, 0.18),
+              inset -2px -2px 6px rgba(255, 255, 255, 0.85);
+}
+
+.dark .clay-inset {
+  box-shadow: inset 2px 3px 6px rgba(0, 0, 0, 0.45),
+              inset -1px -1px 4px rgba(60, 50, 45, 0.5);
+}
+
+.clay-btn {
+  box-shadow: 0 8px 20px -2px rgba(184, 153, 136, 0.2),
+              inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.clay-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -2px rgba(184, 153, 136, 0.25),
+              inset 0 1px 2px rgba(255, 255, 255, 0.95);
+}
+
+.clay-btn:active {
+  transform: translateY(1px) scale(0.97);
+  box-shadow: inset 0 2px 4px rgba(184, 153, 136, 0.25);
+}
+
+.clay-pill {
+  background: #FFFDF9;
+  border: 1px solid rgba(238, 226, 214, 0.9);
+  box-shadow: 0 4px 10px rgba(184, 153, 136, 0.12),
+              inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+.dark .clay-pill {
+  background: #2A2320;
+  border: 1px solid rgba(68, 56, 50, 0.7);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35),
+              inset 0 1px 1px rgba(255, 255, 255, 0.08);
+}
+
+.clay-input {
+  background: #FAF5EE;
+  border: 1.5px solid #EADBCC;
+  box-shadow: inset 2px 2px 5px rgba(184, 153, 136, 0.16),
+              inset -1px -1px 3px rgba(255, 255, 255, 0.85);
+  color: #38312C;
+}
+
+.dark .clay-input {
+  background: #1E1916;
+  border: 1.5px solid #483B34;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.45);
+  color: #F5EFE8;
 }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  background-color: #FAF4EB;
+  color: #38312C;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.dark body {
+  background-color: #1A1513;
+  color: #F5EFE8;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #9CA3AF;
+  background: #D9C8B8;
   border-radius: 9999px;
+  border: 2px solid #FAF4EB;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #6B7280;
+  background: #C4B19F;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #4A3E38;
+  border: 2px solid #1A1513;
 }
